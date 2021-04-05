@@ -44,7 +44,7 @@ int main() {
 ```
 
 ## Part 2: Pointers (10 Points)
-In previous labs, we have discussed utilizing pointers with simple data types like integer and strings. However, we can also use pointers for more complex data structures, and manipulate them using references to pointers. Additionally, we can use arithmetic with pointers to get values located at locations relative to existing pointers. Using this math, we can also manipulate existing pointers, such as incrementing one to iterate through an array. Take the example code below using pointers with arrays, modified from the previous part’s code:![image](https://user-images.githubusercontent.com/18142797/113543351-33c2fa00-95b4-11eb-900d-d0ec3bb0c38f.png)
+In previous labs, we have discussed utilizing pointers with simple data types like integer and strings. However, we can also use pointers for more complex data structures, and manipulate them using references to pointers. Additionally, we can use arithmetic with pointers to get values located at locations relative to existing pointers. Using this math, we can also manipulate existing pointers, such as incrementing one to iterate through an array. Take the example code below using pointers with arrays, modified from the previous part’s code:
 
 ```
 #include <iostream> //Required for cout

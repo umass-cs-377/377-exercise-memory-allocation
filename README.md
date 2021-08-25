@@ -1,4 +1,4 @@
-# COMPSCI 377 LAB #6: Memory Allocation
+# COMPSCI 377 LAB: Memory Allocation
 
 ## Purpose
 

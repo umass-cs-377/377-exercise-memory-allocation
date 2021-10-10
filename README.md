@@ -4,7 +4,7 @@
 
 This lab is designed to cover various forms of memory in C++, through the malloc function, pointers, and how to manipulate existing memory. Please make sure that all of your answers to questions in these labs come from work done on the Edlab environment – otherwise, they may be inconsistent results and will not receive points.
 
-Please submit your answers to this lab on Gradescope in the assignment marked ***Lab #6***. All answers are due by the time specified on Gradescope. The TA present in your lab will do a brief explanation of the various parts of this lab, but you are expected to answer all questions by yourself. Please raise your hand if you have any questions during the lab section – TAs will be notified you are asking a question. Questions and Parts have a number of points marked next to them to signify their weight in this lab’s final grade. Labs are weighted equally, regardless of their total points.
+Please submit your answers to this lab on Gradescope in the assignment marked ***Lab 7***. All answers are due by the time specified on Gradescope. The TA present in your lab will do a brief explanation of the various parts of this lab, but you are expected to answer all questions by yourself. Please raise your hand if you have any questions during the lab section – TAs will be notified you are asking a question. Questions and Parts have a number of points marked next to them to signify their weight in this lab’s final grade. Labs are weighted equally, regardless of their total points.
 
 ## Part 1: Malloc (10 Points)
 

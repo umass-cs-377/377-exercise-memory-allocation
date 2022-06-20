@@ -1,97 +1,104 @@
-# COMPSCI 377 LAB: Memory Allocation
+# COMPSCI 377 Exercise: Memory Allocation
 
 ## Purpose
 
-This lab is designed to cover various forms of memory in C++, through the malloc function, pointers, and how to manipulate existing memory. Please make sure that all of your answers to questions in these labs come from work done on the Edlab environment – otherwise, they may be inconsistent results and will not receive points.
+This exercise is designed to cover various aspects of memory in C/C++: the `malloc` and `free` functions, pointers, and how to manipulate memory. Please make sure that all of your answers to questions in these exercises come from work done on the Edlab environment – otherwise, they may be inconsistent results and will not receive points. Please read through this document and follow the instructions. After you do that, visit Gradescope and complete the questions associated with this exercise by the assigned due date.
 
-The TA present in your lab will do a brief explanation of the various parts of this lab, but you are expected to answer all questions by yourself. Please raise your hand if you have any questions during the lab section. Questions and Parts have a number of points marked next to them to signify their weight in this lab’s final grade.
+## Part 1: Malloc
 
-Please read through this lab and follow the instructions. After you do that, visit Gradescope and complete the questions associated with this lab by the assigned due date.
+Whenever we code programs, we need to ensure that the program has enough memory to support the data structures used in its runtime. In C++, we can use the ‘new’ keyword. For example, `int[] something = new int[10];` which allocates a 10 integer array on the heap. There is, however, another method for allocating memory in C and C++ programs by using the ‘malloc()’ function. There are other related functions, such as `calloc` and `realloc`, that allocate memory. If you are interested in learning more about those functions use man: `man 3 malloc`. The `malloc` function takes a single parameter, the size of the memory we want to allocate, in terms of bytes. For example, if we would like to allocate 8 bytes, we can call the command `malloc(8);`. The function returns the pointer to the first byte of the allocated block of memory to be referenced later in our code. For example, we can use the pointer to perform pointer arithmetic to access any element within (or outside of ☠️) the allocated memory region. When we are done using that memory, we need to pass the reference to `free()` to manually de-allocate memory in use by our program that is no longer needed. If we do not do this our program will leak memory, that is, it will continue to be allocated, but our program no longer uses it and may not even have a reference to it. Please look at the following code, and then answer the related questions in the exercise about `malloc`:
 
-**You may work in groups up to 3 to complete this lab. Make sure you submit as a group in Gradescope.**
+```cpp
+#include <stdlib.h>  //Required for malloc, free
 
-## Part 1: Malloc (10 Points)
-
-Whenever we code programs, we need to ensure that the program has enough memory to support the data structures used in its runtime. In the past, we used the ‘new’ keyword. For example, `int[] something = new int[10];` which automatically allocates a 10 integer array upon initialization. There is, however, another method for allocating memory in C++ by using one of the ‘malloc()’ family methods. The method takes a single parameter, the size of the memory we want to allocate, in terms of bytes. For example, if we would like to allocate 8 bytes, we can call the command `malloc(8);`. The method returns the pointer to the first byte of the allocated block of memory to be referenced later in our code. For example, we can use the pointer to do pointer arithmetic to access any element within the allocated memory. When we are done using the memory, we need to pass the reference to `free()` to de-allocate memory from our code that is not being used. Otherwise, our program will leak memory. Please look at the following code, and then answer the subsequent questions about malloc:
-
-```
-#include <iostream> //Required for cout
-#include <stdlib.h> //Required for malloc, free
+#include <iostream>  //Required for cout
 
 using namespace std;
 
 int main() {
-	int* memory; //Declares a new pointer
-	memory = (int*)malloc(5 * sizeof(int)); //assigns the pointer to allocated memory for 5 int objects
+  int* memory;  // Declares a new pointer
 
-	cout << "Memory Allocated At: " << memory << "\n";
-	
-	if (memory == NULL){
-		return 1; //Only occurs if memory allocation fails and malloc() returns NULL
-	}
+  // Assigns the pointer to allocated memory for 5 int objects
+  memory = (int*)malloc(5 * sizeof(int));
 
-	for (int i = 0; i < 5; i++){
-		memory[i] = i; //Sets the values in the allocated array
-	}
+	// If we get a null pointer, we ran out of memory
+  if (memory == NULL) {
+    return 1;
+  }
 
-	for (int i = 0; i < 5; i++){
-		cout << memory[i] << " "; //Prints out the allocated array
-	}
-	cout << "\n";
+  cout << "Memory Allocated At: " << memory << "\n";
 
-	free(memory); //Frees the allocated memory
+  for (int i = 0; i < 5; i++) {
+    memory[i] = i;  // Sets the values in the allocated array
+  }
 
-	cout << "Memory Has Been Freed.\n";
+  for (int i = 0; i < 5; i++) {
+    cout << memory[i] << " ";  // Prints out the allocated array
+  }
+  cout << "\n";
 
-	return 0;
+  free(memory);  // Frees the allocated memory
+
+  cout << "Memory Has Been Freed.\n";
+
+  return 0;
 }
 ```
 
-## Part 2: Pointers (10 Points)
-In previous labs, we have discussed utilizing pointers with simple data types like integer and strings. However, we can also use pointers for more complex data structures, and manipulate them using references to pointers. Additionally, we can use arithmetic with pointers to get values located at locations relative to existing pointers. Using this math, we can also manipulate existing pointers, such as incrementing one to iterate through an array. Take the example code below using pointers with arrays, modified from the previous part’s code:
+## Part 2: Pointers
 
-```
-#include <iostream> //Required for cout
-#include <stdlib.h> //Required for malloc, free
+In prior assignments, we have discussed utilizing pointers with simple data types like integer and strings. However, we can also use pointers for more complex data structures and use pointers to manipulate them in various ways. Additionally, we can use arithmetic with pointers to get values located at memory locations relative to existing pointers. For example, we can use pointer arithmetic for incrementing a pointer through an array rather than use array indexing. Take the example code below using pointers with arrays, modified from the previous part’s code:
+
+```cpp
+#include <stdlib.h>  //Required for malloc, free
+
+#include <iostream>  //Required for cout
 
 using namespace std;
 
-int getIndex(int* array, int pos){
-	return *(array + pos); //Prints out the data located at the memory address (array + pos)
+int getIndex(int* array, int pos) {
+  // Assigns the pointer to allocated memory for 5 int objects
+  return *(array + pos);
 }
 
 int main() {
-	int* memory; //Declares a new pointer
-	memory = (int*)malloc(5 * sizeof(int)); //assigns the pointer to allocated memory for 5 int objects
+  int* memory;  // Declares a new pointer
 
-	cout << "Memory Allocated At: " << memory << "\n";
-	
-	if (memory == NULL){
-		return 1; //Only occurs if memory allocation fails and malloc() returns NULL
-	}
+  // Assigns the pointer to allocated memory for 5 int objects
+  memory = (int*)malloc(5 * sizeof(int));
 
-	for (int i = 0; i < 5; i++){
-		memory[i] = i; //Sets the values in the allocated array
-	}
+  // If we get a null pointer, we ran out of memory
+  if (memory == NULL) {
+    return 1;
+  }
 
-	cout << "Printing once... ";
-	for (int i = 0; i < 5; i++){
-		cout << getIndex(memory, i) << " "; //Prints out the allocated array using a modified pointer via getIndex()
-	}
-	cout << "\n";
+  cout << "Memory Allocated At: " << memory << "\n";
 
-	cout << "Printing twice... ";
-	int* incremented = memory; //Sets a new pointer at the same address of memory
-	for (int i = 0; i < 5; i++){
-		cout << *incremented << " "; //Prints out the data stored at the location of the pointer
-		incremented++; //Increments the new pointer
-	}
-	cout << "\n";
+  for (int i = 0; i < 5; i++) {
+    memory[i] = i;  // Sets the values in the allocated array
+  }
 
-	free(memory); //Frees the allocated memory
+  cout << "Printing once... ";
+  for (int i = 0; i < 5; i++) {
+    // Prints out the allocated array using a modified pointer via getIndex()
+    cout << getIndex(memory, i) << " ";
+  }
+  cout << "\n";
 
-	cout << "Memory Has Been Freed.\n";
+  cout << "Printing twice... ";
+  int* incremented = memory;  // Sets a new pointer at the same address of
+                              // memory
+  for (int i = 0; i < 5; i++) {
+    cout << *incremented
+         << " ";    // Prints out the data stored at the location of the pointer
+    incremented++;  // Increments the new pointer
+  }
+  cout << "\n";
 
-	return 0;
+  free(memory);  // Frees the allocated memory
+
+  cout << "Memory Has Been Freed.\n";
+
+  return 0;
 }
 ```

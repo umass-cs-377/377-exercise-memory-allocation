@@ -1,30 +1,34 @@
-#include <iostream> //Required for cout
-#include <stdlib.h> //Required for malloc, free
+#include <stdlib.h>  //Required for malloc, free
+
+#include <iostream>  //Required for cout
 
 using namespace std;
 
 int main() {
-	int* memory; //Declares a new pointer
-	memory = (int*)malloc(5 * sizeof(int)); //assigns the pointer to allocated memory for 5 int objects
+  int* memory;  // Declares a new pointer
 
-	cout << "Memory Allocated At: " << memory << "\n";
-	
-	if (memory == NULL){
-		return 1; //Only occurs if memory allocation fails and malloc() returns NULL
-	}
+  // Assigns the pointer to allocated memory for 5 int objects
+  memory = (int*)malloc(5 * sizeof(int));
 
-	for (int i = 0; i < 5; i++){
-		memory[i] = i; //Sets the values in the allocated array
-	}
+	// If we get a null pointer, we ran out of memory
+  if (memory == NULL) {
+    return 1;
+  }
 
-	for (int i = 0; i < 5; i++){
-		cout << memory[i] << " "; //Prints out the allocated array
-	}
-	cout << "\n";
+  cout << "Memory Allocated At: " << memory << "\n";
 
-	free(memory); //Frees the allocated memory
+  for (int i = 0; i < 5; i++) {
+    memory[i] = i;  // Sets the values in the allocated array
+  }
 
-	cout << "Memory Has Been Freed.\n";
+  for (int i = 0; i < 5; i++) {
+    cout << memory[i] << " ";  // Prints out the allocated array
+  }
+  cout << "\n";
 
-	return 0;
+  free(memory);  // Frees the allocated memory
+
+  cout << "Memory Has Been Freed.\n";
+
+  return 0;
 }

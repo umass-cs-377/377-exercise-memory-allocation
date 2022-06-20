@@ -1,43 +1,51 @@
-#include <iostream> //Required for cout
-#include <stdlib.h> //Required for malloc, free
+#include <stdlib.h>  //Required for malloc, free
+
+#include <iostream>  //Required for cout
 
 using namespace std;
 
-int getIndex(int* array, int pos){
-	return *(array + pos); //Assigns the pointer to allocated memory for 5 int objects
+int getIndex(int* array, int pos) {
+  // Assigns the pointer to allocated memory for 5 int objects
+  return *(array + pos);
 }
 
 int main() {
-	int* memory; //Declares a new pointer
-	memory = (int*)malloc(5 * sizeof(int)); //assigns the pointer to allocated memory for 5 int objects
+  int* memory;  // Declares a new pointer
 
-	cout << "Memory Allocated At: " << memory << "\n";
-	
-	if (memory == NULL){
-		return 1; //Only occurs if memory allocation fails and malloc() returns NULL
-	}
+  // Assigns the pointer to allocated memory for 5 int objects
+  memory = (int*)malloc(5 * sizeof(int));
 
-	for (int i = 0; i < 5; i++){
-		memory[i] = i; //Sets the values in the allocated array
-	}
+  // If we get a null pointer, we ran out of memory
+  if (memory == NULL) {
+    return 1;
+  }
 
-	cout << "Printing once... ";
-	for (int i = 0; i < 5; i++){
-		cout << getIndex(memory, i) << " "; //Prints out the allocated array using a modified pointer via getIndex()
-	}
-	cout << "\n";
+  cout << "Memory Allocated At: " << memory << "\n";
 
-	cout << "Printing twice... ";
-	int* incremented = memory; //Sets a new pointer at the same address of memory
-	for (int i = 0; i < 5; i++){
-		cout << *incremented << " "; //Prints out the data stored at the location of the pointer
-		incremented++; //Increments the new pointer
-	}
-	cout << "\n";
+  for (int i = 0; i < 5; i++) {
+    memory[i] = i;  // Sets the values in the allocated array
+  }
 
-	free(memory); //Frees the allocated memory
+  cout << "Printing once... ";
+  for (int i = 0; i < 5; i++) {
+    // Prints out the allocated array using a modified pointer via getIndex()
+    cout << getIndex(memory, i) << " ";
+  }
+  cout << "\n";
 
-	cout << "Memory Has Been Freed.\n";
+  cout << "Printing twice... ";
+  int* incremented = memory;  // Sets a new pointer at the same address of
+                              // memory
+  for (int i = 0; i < 5; i++) {
+    cout << *incremented
+         << " ";    // Prints out the data stored at the location of the pointer
+    incremented++;  // Increments the new pointer
+  }
+  cout << "\n";
 
-	return 0;
+  free(memory);  // Frees the allocated memory
+
+  cout << "Memory Has Been Freed.\n";
+
+  return 0;
 }
